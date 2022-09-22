@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-// import { FcPlus } from "react-icons/fc";
+
 const List = () => {
   const [items, setItems] = useState("");
   const [arrItem, setArrItem] = useState([]);
