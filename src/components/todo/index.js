@@ -1,30 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
+const getLocalItems = () => {
+  let list = localStorage.getItem('list');
+  console.log(list);
+  if (list) {
+    return JSON.parse(localStorage.getItem('list'));
+  }else{
+    return [];
+  } 
+}
 
 const List = () => {
-  const [items, setItems] = useState("");
-  const [arrItem, setArrItem] = useState([]);
+  const [items, setItems] = useState('');
+  const [arrItem, setArrItem] = useState(getLocalItems());
   const [toggleBtn, setToggleBtn] = useState(true);
   const [isEditItem, setIsEditItem] = useState(null);
+
+  
   const addItems = () => {
     if (!items) {
       alert('Please write something.')
     }else if(items && !toggleBtn) {
-      setArrItem(arrItem.map((item) => {
+      setArrItem(
+        arrItem.map((item) => {
         if(item.id === isEditItem) {
           return {...item, name: items}
         }
-        return item;
+        return item;   
       }))
-      setItems('');
       setToggleBtn(!toggleBtn);
+      setItems('');
+      setIsEditItem(null);
     
     } else {
       const inputedItems = {id: new Date().getTime().toString(), name: items}
-      console.log(inputedItems);
-      setArrItem([...arrItem, inputedItems]);
-      setItems("");
+      setArrItem([ ... arrItem, inputedItems]);
+      setItems('');
     }
   };
   const editItem = (index) => {
@@ -32,7 +44,7 @@ const List = () => {
       return item.id === index;
     })
     console.log(newEditItem);
-    setToggleBtn(!toggleBtn);
+    setToggleBtn(false);
     setItems(newEditItem.name);
     setIsEditItem(index);
   }
@@ -46,6 +58,11 @@ const List = () => {
   const removeAll = () => {
     setArrItem([]);
   };
+  useEffect(() => {
+    localStorage.setItem('list',JSON.stringify(arrItem))
+  }, [arrItem]);
+
+
   return (
     <Container fluid>
       <Row className="mt-5">
