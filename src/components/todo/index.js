@@ -65,7 +65,7 @@ const List = () => {
 
   // convert to pdf 
   const exportPdf = () => {
-    const input = document.getElementById("viewportMeta");
+    const input = document.getElementById("App");
     html2canvas(input).then((canvas) => {
       const base64image = canvas.toDataURL("image/png");
       var anchor = document.createElement('a');
