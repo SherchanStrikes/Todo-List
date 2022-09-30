@@ -163,7 +163,7 @@ const List = () => {
               Clear All Items
             </button>
             <button id="dl-png" className="btn btn-warning mt-3 ms-2 text-black"
-              style={{ cursor: "pointer", fontWeight: 500 }} onClick={() => exportPdf()}>Save as pdf</button>
+              style={{ cursor: "pointer", fontWeight: 500 }} onClick={() => exportPdf()}>Save as png</button>
           </Col>
         </Row>
       ) : null}
