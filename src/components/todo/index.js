@@ -1,3 +1,4 @@
+import html2canvas from "html2canvas";
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -62,9 +63,20 @@ const List = () => {
     localStorage.setItem('list',JSON.stringify(arrItem))
   }, [arrItem]);
 
-
+  // convert to pdf 
+  const exportPdf = () => {
+    const input = document.getElementById("App");
+    html2canvas(input).then((canvas) => {
+      const base64image = canvas.toDataURL("image/png");
+      var anchor = document.createElement('a');
+      anchor.setAttribute("href", base64image);
+      anchor.setAttribute("download", "todo.png");
+      anchor.click();
+      anchor.remove();
+    })
+  };
   return (
-    <Container fluid>
+    <Container fluid id="App">
       <Row className="mt-5">
         <Col
           className="d-flex mt-5 justify-content-center text-white p-2"
@@ -150,6 +162,8 @@ const List = () => {
             >
               Clear All Items
             </button>
+            <button id="dl-png" className="btn btn-warning mt-3 ms-2 text-black"
+              style={{ cursor: "pointer", fontWeight: 500 }} onClick={() => exportPdf()}>Save as pdf</button>
           </Col>
         </Row>
       ) : null}
