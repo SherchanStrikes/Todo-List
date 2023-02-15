@@ -125,7 +125,6 @@ const List = () => {
           <Col className="d-flex justify-content-center">
             <div
               className="input-group d-flex  align-items-center mt-3 w-50"
-              
             >
               <input
                 type="text"
